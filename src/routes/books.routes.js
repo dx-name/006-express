@@ -1,49 +1,24 @@
 const express = require('express');
-const booksService = require('../services/books.service');
-
 const router = express.Router();
+const upload = require('../middleware/upload');
 
-router.get('/', (req, res) => {
-  res.json(booksService.getAll());
-});
+const {
+  getBooks,
+  getBookById,
+  createBook,
+  updateBook,
+  deleteBook,
+  downloadBook,
+} = require('../controllers/books');
 
-router.get('/:id', (req, res) => {
-  const book = booksService.getById(req.params.id);
+router.get('/', getBooks);
+router.get('/:id', getBookById);
 
-  if (!book) {
-    return res.status(404).json({ error: 'Book not found' });
-  }
+router.post('/', upload.single('fileBook'), createBook);
 
-  res.json(book);
-});
+router.put('/:id', upload.single('fileBook'), updateBook);
+router.delete('/:id', deleteBook);
 
-router.post('/', (req, res) => {
-  try {
-    const book = booksService.create(req.body);
-    res.status(201).json(book);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-router.put('/:id', (req, res) => {
-  const book = booksService.update(req.params.id, req.body);
-
-  if (!book) {
-    return res.status(404).json({ error: 'Book not found' });
-  }
-
-  res.json(book);
-});
-
-router.delete('/:id', (req, res) => {
-  const deleted = booksService.delete(req.params.id);
-
-  if (!deleted) {
-    return res.status(404).json({ error: 'Book not found' });
-  }
-
-  res.send('ok');
-});
+router.get('/:id/download', downloadBook);
 
 module.exports = router;

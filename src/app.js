@@ -1,10 +1,12 @@
-const express = require('express');
 
-const routes = require('./routes');
+const express = require('express');
+const booksRouter = require('./routes/books.routes');
 
 const app = express();
 
 app.use(express.json());
-app.use('/api', routes);
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/books', booksRouter);
 
 module.exports = app;
