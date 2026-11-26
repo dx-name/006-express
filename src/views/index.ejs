@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title><%= typeof title !== 'undefined' ? title : 'Библиотека' %></title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 12px 0; }
+    .btn { display: inline-block; padding: 8px 14px; margin-right: 8px;
+           background: #335eea; color: #fff; text-decoration: none;
+           border: none; border-radius: 6px; cursor: pointer; }
+    .btn-danger { background: #d64545; }
+    form label { display: block; margin-top: 12px; font-weight: bold; }
+    form input[type="text"], form textarea, form input[type="file"] {
+      width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+    form textarea { height: 100px; }
+  </style>
+</head>
+<body>
+  <h1>📚 Библиотека</h1>
+
+  <a class="btn" href="/books/create">+ Добавить книгу</a>
+
+  <% if (books.length === 0) { %>
+    <p>Книг пока нет. Самое время добавить первую!</p>
+  <% } %>
+
+  <% books.forEach(function(book) { %>
+    <div class="card">
+      <h2><a href="/books/<%= book.id %>"><%= book.title %></a></h2>
+      <p><em><%= book.authors %></em></p>
+    </div>
+  <% }) %>
+</body>
+</html>

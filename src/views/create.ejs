@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Новая книга — Библиотека</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .btn { display: inline-block; padding: 8px 14px; margin-right: 8px; margin-top: 8px;
+           background: #335eea; color: #fff; text-decoration: none;
+           border: none; border-radius: 6px; cursor: pointer; }
+    form label { display: block; margin-top: 12px; font-weight: bold; }
+    form input[type="text"], form textarea, form input[type="file"] {
+      width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+    form textarea { height: 100px; }
+  </style>
+</head>
+<body>
+  <h1>Добавить книгу</h1>
+
+  <form action="/books/create" method="POST" enctype="multipart/form-data">
+    <label for="title">Название</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="authors">Авторы</label>
+    <input type="text" id="authors" name="authors" required>
+
+    <label for="description">Описание</label>
+    <textarea id="description" name="description"></textarea>
+
+    <label for="favorite">
+      <input type="checkbox" id="favorite" name="favorite" value="true"> Любимая книга
+    </label>
+
+    <label for="fileCover">Обложка (jpg, png, gif, webp)</label>
+    <input type="file" id="fileCover" name="fileCover" accept="image/*">
+
+    <label for="fileBook">Файл книги (pdf, epub, fb2, txt, mobi)</label>
+    <input type="file" id="fileBook" name="fileBook">
+
+    <p>
+      <button type="submit" class="btn">Создать</button>
+      <a class="btn" href="/books">Отмена</a>
+    </p>
+  </form>
+</body>
+</html>
